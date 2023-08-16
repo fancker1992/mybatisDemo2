@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.example.mapper.EmpMapperXML">
+    <!--查询所有-->
+    <select id="getEmpListAll" resultType="com.example.pojo.Emp">
+        select * from emp
+    </select>
+
+    <!--通过ID查询-->
+    <select id="getEmpByID" resultType="com.example.pojo.Emp">
+        select * from emp where id = #{id}
+    </select>
+
+    <!--模糊查询，并通过时间筛选-->
+    <select id="getEmpList" resultType="com.example.pojo.Emp">
+        select * from emp
+        <where>
+            <if test="name != null">
+                name like concat ('%',#{name},'%')
+            </if>
+            <if test="begin != null and  end != null">
+                and entrydate between #{begin} and #{end}
+            </if>
+
+        </where>
+    </select>
+
+    <!--更新-->
+    <update id="update">
+        update emp
+        <set>
+            <if test="username != null">
+                username=#{username},
+            </if>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="gender != null">
+                gender=#{gender},
+            </if>
+            <if test="image != null">
+                image=#{image},
+            </if>
+            <if test="job != null">
+                job=#{job},
+            </if>
+            <if test="entrydate != null">
+                entrydate=#{entrydate},
+            </if>
+            <if test="deptId != null">
+                dept_id=#{deptId},
+            </if>
+            <if test="updateTime != null">
+                update_time=#{updateTime}
+            </if>
+
+        </set>
+
+        where id = #{id}
+
+    </update>
+
+
+    <!--批量删除-->
+    <delete id="deleteByIds">
+        delete from emp where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+
+            #{id}
+        </foreach>
+
+    </delete>
+
+</mapper>

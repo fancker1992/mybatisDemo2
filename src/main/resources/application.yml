@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.93.113.160:3306/test
+    username: root
+    password: 123456
+
+
+
+mybatis:
+  configuration:
+    #指定mybatis输出日志的位置, 输出控制台
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #如果字段名与属性名符合驼峰命名规则，mybatis会自动通过驼峰命名规则映射
+    map-underscore-to-camel-case: true
